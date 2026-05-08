@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "language": "es",
+  "dialect": "latin-american",
+  "default_substitution_cost": 1.0,
+  "default_insertion_cost": 0.8,
+  "default_deletion_cost": 0.8,
+  "notes": [
+    "Cost spectrum: 0.1 = barely matters (regional/allophonic variation), 0.3 = noticeable but understandable, 0.5 = significant error (mispronunciation), 0.8 = very wrong (changes meaning or comprehension), 1.0 = max default substitution cost.",
+    "english_speaker_error: true means this is a typical pattern produced by an L1 English speaker speaking Spanish. The UI surfaces these in feedback ('your ñ came out as n').",
+    "Pairs are directional: 'expected' is the target Spanish phoneme, 'actual' is what the model detected. The matrix applies regardless of order in scoring (symmetric lookup), but description is written from the L1-English direction for clarity."
+  ],
+  "matrix": [
+    { "expected": "ɲ", "actual": "n", "cost": 0.3, "english_speaker_error": true, "description": "ñ pronounced as plain n (mañana → manana, canyon → cannon). Comprehensible but obviously non-native." },
+    { "expected": "ɲ", "actual": "nj", "cost": 0.1, "english_speaker_error": true, "description": "ñ produced as a literal n+y sequence rather than a single palatal nasal. Very close; native listeners barely notice." },
+
+    { "expected": "r", "actual": "ɾ", "cost": 0.2, "english_speaker_error": true, "description": "Trilled rr softened to a single tap (perro → pero — meaning shift from 'dog' to 'but', but listeners usually disambiguate by context)." },
+    { "expected": "r", "actual": "ɹ", "cost": 0.5, "english_speaker_error": true, "description": "Trilled rr replaced with English alveolar approximant. Heavy English-accent marker." },
+    { "expected": "ɾ", "actual": "ɹ", "cost": 0.5, "english_speaker_error": true, "description": "Spanish tap replaced with English alveolar approximant; the most pervasive English-accent tell." },
+    { "expected": "ɾ", "actual": "r", "cost": 0.2, "english_speaker_error": false, "description": "Single tap over-trilled. Sounds emphatic but understandable." },
+    { "expected": "ɾ", "actual": "d", "cost": 0.2, "english_speaker_error": true, "description": "Tap rendered as English /d/ (Spanish ɾ and American flapped 'tt' in 'butter' are nearly identical, so this is often correct in disguise; cost stays low)." },
+
+    { "expected": "x", "actual": "h", "cost": 0.1, "english_speaker_error": false, "description": "Voiceless velar fricative simplified to plain English /h/. Latin American /x/ is already close to /h/; minimal penalty." },
+    { "expected": "x", "actual": "k", "cost": 0.5, "english_speaker_error": false, "description": "Voiceless velar fricative replaced with stop (jamón → kamón). Significant error; changes phonemic identity." },
+    { "expected": "x", "actual": "dʒ", "cost": 0.8, "english_speaker_error": true, "description": "Spanish j read as English j sound (jamás → jamas with English 'j'). Breaks comprehension." },
+
+    { "expected": "ʎ", "actual": "j", "cost": 0.1, "english_speaker_error": false, "description": "ll merged to /j/ — yeísmo. Default Latin American pronunciation; not an error." },
+    { "expected": "ʎ", "actual": "ʝ", "cost": 0.1, "english_speaker_error": false, "description": "ll as palatal fricative — yeísmo variant. Not an error." },
+    { "expected": "ʎ", "actual": "l", "cost": 0.4, "english_speaker_error": true, "description": "ll flattened to plain l (calle → cale). Comprehension-impacting." },
+    { "expected": "ʎ", "actual": "ʃ", "cost": 0.2, "english_speaker_error": false, "description": "ll as /ʃ/ — Argentine/Uruguayan sheísmo. Regional variant, not an error." },
+
+    { "expected": "ʝ", "actual": "j", "cost": 0.1, "english_speaker_error": false, "description": "Palatal fricative softened to approximant — common allophonic variation." },
+    { "expected": "ʝ", "actual": "dʒ", "cost": 0.5, "english_speaker_error": true, "description": "y produced as English j (yo → joh). Heavy English-accent marker." },
+
+    { "expected": "b", "actual": "v", "cost": 0.3, "english_speaker_error": true, "description": "Spanish v read as English /v/ labiodental rather than /b/ bilabial (vino → English-vino instead of bee-noh)." },
+    { "expected": "β", "actual": "v", "cost": 0.3, "english_speaker_error": true, "description": "Intervocalic b/v read as English /v/ instead of bilabial approximant." },
+    { "expected": "β", "actual": "b", "cost": 0.1, "english_speaker_error": false, "description": "Approximant produced as full stop. Allophonic; native speakers do this in emphatic speech." },
+    { "expected": "b", "actual": "β", "cost": 0.1, "english_speaker_error": false, "description": "Stop softened to approximant. Allophonic." },
+
+    { "expected": "ð", "actual": "d", "cost": 0.1, "english_speaker_error": false, "description": "Intervocalic d produced as full stop instead of approximant. Allophonic; emphatic-register." },
+    { "expected": "d", "actual": "ð", "cost": 0.1, "english_speaker_error": false, "description": "Stop softened to approximant in casual register." },
+    { "expected": "ð", "actual": "θ", "cost": 0.4, "english_speaker_error": true, "description": "Voiced dental approximant devoiced to English 'th' as in 'think' (nada → English-nath-uh). Comprehension-impacting." },
+
+    { "expected": "ɣ", "actual": "g", "cost": 0.1, "english_speaker_error": false, "description": "Approximant produced as full stop. Allophonic." },
+    { "expected": "g", "actual": "dʒ", "cost": 0.8, "english_speaker_error": true, "description": "Soft English /g/ used before e/i (gente → English-jen-tay). Spanish g before e/i is /x/, not /dʒ/ — heavy error, breaks comprehension." },
+    { "expected": "g", "actual": "ɣ", "cost": 0.1, "english_speaker_error": false, "description": "Stop softened to approximant. Allophonic." },
+
+    { "expected": "a", "actual": "ə", "cost": 0.4, "english_speaker_error": true, "description": "Spanish /a/ reduced to schwa in unstressed syllables (English habit). Spanish vowels do not reduce; this is a major accent marker." },
+    { "expected": "e", "actual": "ə", "cost": 0.4, "english_speaker_error": true, "description": "Spanish /e/ reduced to schwa in unstressed syllables." },
+    { "expected": "o", "actual": "ə", "cost": 0.4, "english_speaker_error": true, "description": "Spanish /o/ reduced to schwa in unstressed syllables (libros → English-lee-brəs)." },
+    { "expected": "e", "actual": "ɪ", "cost": 0.3, "english_speaker_error": true, "description": "Spanish /e/ produced as English short-i. Common when speaker tries to avoid the 'eh' lengthening." },
+    { "expected": "e", "actual": "eɪ", "cost": 0.3, "english_speaker_error": true, "description": "Spanish /e/ diphthongized to English 'ay' (de → 'day' instead of 'deh')." },
+    { "expected": "o", "actual": "oʊ", "cost": 0.3, "english_speaker_error": true, "description": "Spanish /o/ diphthongized to English 'oh-w' (no → 'know' instead of 'noh')." },
+    { "expected": "i", "actual": "ɪ", "cost": 0.3, "english_speaker_error": true, "description": "Spanish /i/ produced as English short-i (sí → 'sih' instead of 'see')." },
+    { "expected": "u", "actual": "ʊ", "cost": 0.3, "english_speaker_error": true, "description": "Spanish /u/ produced as English short-u (tú → 'tuh' instead of 'too')." },
+    { "expected": "u", "actual": "juː", "cost": 0.5, "english_speaker_error": true, "description": "Spanish /u/ glided to English /ju/ (Cuba → 'kyu-bah' instead of 'KOO-bah'). Common after stops." },
+
+    { "expected": "p", "actual": "pʰ", "cost": 0.2, "english_speaker_error": true, "description": "Spanish unaspirated /p/ produced with English aspiration. Accent marker, not comprehension-impacting." },
+    { "expected": "t", "actual": "tʰ", "cost": 0.2, "english_speaker_error": true, "description": "Spanish unaspirated /t/ produced with English aspiration." },
+    { "expected": "k", "actual": "kʰ", "cost": 0.2, "english_speaker_error": true, "description": "Spanish unaspirated /k/ produced with English aspiration." },
+    { "expected": "t", "actual": "ɾ", "cost": 0.3, "english_speaker_error": true, "description": "English-style flapping of /t/ between vowels (Spanish /t/ stays a clean dental stop)." },
+
+    { "expected": "s", "actual": "z", "cost": 0.5, "english_speaker_error": true, "description": "Spanish /s/ voiced to /z/ (casa → 'kaza'). Spanish lacks phonemic /z/ — error." },
+    { "expected": "s", "actual": "θ", "cost": 0.2, "english_speaker_error": false, "description": "Castilian distinción: c/z → /θ/, s → /s/. Regional variant, not Latin American but understood." },
+
+    { "expected": "tʃ", "actual": "ʃ", "cost": 0.4, "english_speaker_error": true, "description": "Spanish 'ch' weakened to English 'sh' (mucho → musho). Northern Mexican variant exists but for L1 English it's an error." },
+
+    { "expected": "", "actual": "h", "cost": 0.5, "english_speaker_error": true, "description": "Speaker pronounces a silent Spanish h (hola → 'hoh-lah' with audible h instead of 'OH-lah'). Insertion." },
+    { "expected": "", "actual": "ə", "cost": 0.4, "english_speaker_error": true, "description": "Speaker inserts an epenthetic schwa between consonants in clusters (ps-, ts-) where Spanish does not." },
+    { "expected": "s", "actual": "", "cost": 0.5, "english_speaker_error": true, "description": "Final s dropped (buenas tardes → buena tarde). Common in some Caribbean dialects (not error there) but typical L1-English error in Latin American target." },
+    { "expected": "ɾ", "actual": "", "cost": 0.6, "english_speaker_error": true, "description": "Tap r dropped entirely in clusters or codas. Comprehension-impacting." },
+    { "expected": "n", "actual": "", "cost": 0.6, "english_speaker_error": true, "description": "Final n dropped (hablan → habla). Changes verb agreement." },
+
+    { "expected": "j", "actual": "i", "cost": 0.2, "english_speaker_error": true, "description": "Speaker breaks rising diphthong into two syllables (siete → 'see-eh-teh' instead of 'SYEH-teh'). Comprehensible but rhythm is off." },
+    { "expected": "w", "actual": "u", "cost": 0.2, "english_speaker_error": true, "description": "Speaker breaks rising diphthong (bueno → 'boo-eh-noh' instead of 'BWEH-noh')." },
+
+    { "expected": "f", "actual": "v", "cost": 0.5, "english_speaker_error": false, "description": "Voicing error on /f/. Uncommon for L1 English but model-confusion plausible." }
+  ]
+}
