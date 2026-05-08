@@ -4,7 +4,7 @@
 (function () {
   'use strict';
 
-  const ALIGN_BASE_URL = 'https://parrot-lab-align.fly.dev';
+  const ALIGN_BASE_URL = 'https://parrot-lab-align-brxpk.sprites.app';
   const USE_MOCK = true; // flip to false once /align is live
 
   function mockResult(expectedText) {
