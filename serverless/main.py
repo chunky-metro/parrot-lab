@@ -33,6 +33,7 @@ import httpx
 import numpy as np
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 
@@ -204,7 +205,9 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="parrot-lab align", version="0.1.0-m3", lifespan=lifespan)
 
-# v1: wide-open CORS. Tighten to the static-bundle origin in M7.
+# CORS still wide-open as a belt-and-suspenders measure (in case anyone hits
+# /align cross-origin during dev). After M9 the web bundle is served from the
+# same origin via StaticFiles below, so production traffic doesn't hit CORS.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -525,3 +528,25 @@ def healthz() -> HealthResponse:
         model_load_seconds=_state["model_load_seconds"],
         timestamp=datetime.now(timezone.utc).isoformat(),
     )
+
+
+# ---------- Static web bundle (M9 consolidation) ----------
+#
+# The web client (HTML/JS/CSS + data/*.json) is mounted at "/" so it is served
+# from the SAME origin as /align. This eliminates the cross-origin call that
+# was triggering Safari "Failed to fetch" CORS errors when the web bundle was
+# hosted on a separate sprite (parrot-lab-web). Single sprite = no CORS.
+#
+# Mount LAST so /align and /healthz take precedence over static routes.
+_WEB_DIR_CANDIDATES = [
+    Path(__file__).parent / "web",          # serverless/web/ (docker image)
+    Path(__file__).parent.parent / "web",   # repo-root web/ (local dev)
+]
+for _web_dir in _WEB_DIR_CANDIDATES:
+    if _web_dir.exists() and (_web_dir / "index.html").exists():
+        app.mount("/", StaticFiles(directory=str(_web_dir), html=True), name="web")
+        log.info("mounted web bundle at / from %s", _web_dir)
+        break
+else:
+    log.warning("no web bundle found; / will 404. Tried: %s",
+                [str(p) for p in _WEB_DIR_CANDIDATES])

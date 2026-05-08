@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="parrot-lab — pronunciation practice for English speakers learning Spanish. Hear what you actually sounded like.">
+  <meta name="theme-color" content="#0e0e10">
+  <title>parrot-lab</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="site-title">parrot-lab</h1>
+    <p class="site-tagline">Hear what you actually sounded like.</p>
+  </header>
+
+  <main class="app">
+    <section class="phrase-picker" aria-label="Phrase picker">
+      <label for="phrase-select" class="picker-label">Pick a phrase:</label>
+      <select id="phrase-select" class="phrase-select" aria-live="polite">
+        <option value="">loading sample phrases…</option>
+      </select>
+      <button id="phrase-shuffle" class="btn btn-secondary" type="button" aria-label="Shuffle phrase">shuffle</button>
+    </section>
+
+    <section class="current-phrase" aria-label="Current phrase">
+      <div class="phrase-text" id="phrase-text" aria-live="polite">—</div>
+      <div class="phrase-ipa" id="phrase-ipa" aria-label="IPA pronunciation"></div>
+      <div class="phrase-respelling" id="phrase-respelling" aria-label="English respelling"></div>
+      <div class="phrase-gloss" id="phrase-gloss" aria-label="English meaning"></div>
+      <button id="read-aloud" class="btn btn-secondary" type="button" aria-label="Hear the phrase read aloud">
+        <span aria-hidden="true">▶</span> read aloud
+      </button>
+    </section>
+
+    <section class="record-section" aria-label="Record your attempt">
+      <button id="record-button" class="mic-button" type="button" aria-label="Start recording" aria-pressed="false">
+        <span class="mic-icon" aria-hidden="true">●</span>
+        <span class="mic-label">tap to record</span>
+      </button>
+      <div id="recording-indicator" class="recording-indicator" hidden>
+        <span class="rec-dot" aria-hidden="true"></span> recording…
+      </div>
+      <div id="status-message" class="status-message" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="playback-controls" id="playback-controls" hidden aria-label="Playback">
+      <button id="playback-button" class="btn btn-secondary" type="button">▶ play your attempt</button>
+      <button id="retry-button" class="btn btn-secondary" type="button">retry</button>
+    </section>
+
+    <section class="results" aria-label="Results" hidden id="results-section">
+      <div id="score-display" class="score-display" aria-live="polite"></div>
+      <div id="sounded-like-display" class="sounded-like" aria-live="polite"></div>
+      <ul id="mistakes-list" class="mistakes-list"></ul>
+      <div id="progress-bar" class="progress-bar" hidden>
+        <div class="progress-fill"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="stats">
+      <span class="stat"><strong id="streak-counter">0</strong> day streak</span>
+      <span class="stat"><strong id="attempt-counter">0</strong> attempts</span>
+    </div>
+    <a href="https://github.com/chunky-metro/parrot-lab" rel="noopener" target="_blank">GitHub</a>
+  </footer>
+
+  <script src="js/storage.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/score.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
