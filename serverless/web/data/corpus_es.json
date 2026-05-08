@@ -57,7 +57,7 @@
     "id": "es-007",
     "text": "Gracias",
     "ipa": "ˈɡɾa.sjas",
-    "respelling": "grasseeus",
+    "respelling": "grassious",
     "english_translation": "Thank you",
     "difficulty": 1,
     "tags": ["polite", "fsi", "common"]
@@ -363,7 +363,7 @@
     "id": "es-041",
     "text": "No, gracias",
     "ipa": "no ˈɡɾa.sjas",
-    "respelling": "no grasseeus",
+    "respelling": "no grassious",
     "english_translation": "No, thank you",
     "difficulty": 2,
     "tags": ["polite", "pimsleur", "common"]
@@ -399,7 +399,7 @@
     "id": "es-045",
     "text": "Hasta luego",
     "ipa": "ˈas.ta ˈlwe.ɣo",
-    "respelling": "asta lwaygo",
+    "respelling": "asta lawaygo",
     "english_translation": "See you later",
     "difficulty": 2,
     "tags": ["greeting", "fsi", "common"]
