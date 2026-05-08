@@ -253,12 +253,39 @@ async def _fetch_audio_bytes(req: AlignRequest) -> bytes:
 
 
 def _decode_to_16k_mono(audio_bytes: bytes) -> np.ndarray:
-    import librosa  # type: ignore
+    """Decode arbitrary audio bytes (webm/opus, mp4/aac, wav, mp3, ogg, flac)
+    to 16 kHz mono float32 via ffmpeg subprocess.
 
-    # librosa.load handles wav/mp3/flac/m4a via soundfile + audioread.
-    # ffmpeg is required for non-wav formats — Dockerfile installs it.
-    waveform, sr = librosa.load(io.BytesIO(audio_bytes), sr=16000, mono=True)
-    return waveform.astype(np.float32)
+    Why not librosa.load(BytesIO(...))? When given a BytesIO, librosa goes
+    straight to soundfile (libsndfile), which does NOT support webm/opus or
+    mp4/aac — the two formats browser MediaRecorder produces. The audioread
+    fallback that handles those formats requires a filesystem path. ffmpeg
+    handles everything libsndfile + audioread combined would, with one call.
+    """
+    import subprocess
+
+    proc = subprocess.run(
+        [
+            "ffmpeg",
+            "-hide_banner",
+            "-loglevel", "error",
+            "-i", "pipe:0",        # input from stdin
+            "-f", "f32le",         # raw float32 little-endian PCM
+            "-ar", "16000",        # 16 kHz
+            "-ac", "1",            # mono
+            "pipe:1",              # output to stdout
+        ],
+        input=audio_bytes,
+        capture_output=True,
+        timeout=30,
+    )
+    if proc.returncode != 0:
+        msg = proc.stderr.decode("utf-8", errors="replace")[:500]
+        raise HTTPException(
+            status_code=400,
+            detail=f"audio decode failed (ffmpeg): {msg}",
+        )
+    return np.frombuffer(proc.stdout, dtype=np.float32)
 
 
 # ---------- Phoneme extraction ----------
