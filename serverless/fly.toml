@@ -1,6 +1,7 @@
 # parrot-lab phoneme alignment service — Fly.io machine config.
-# M2.4: placeholder. Real `fly launch` + `fly deploy` happens in M3.
-# M3 note: bump memory to >=4GB once Wav2Vec2-XLSR (~1GB) is loaded at startup.
+# M3: real Wav2Vec2-XLSR phoneme model + fal-ai/wizper STT.
+# Memory bumped to 4GB (model is ~1GB + torch overhead).
+# See README.md for `fly volumes create model_cache --size 5` step.
 app = "parrot-lab-align"
 primary_region = "iad"
 
@@ -9,14 +10,23 @@ primary_region = "iad"
 
 [env]
   PORT = "8080"
+  MODEL_CACHE_DIR = "/app/model_cache"
 
 [http_service]
   internal_port = 8080
   force_https = true
   auto_stop_machines = "stop"
   auto_start_machines = true
+  # min_machines_running = 1 in production once warmed; keep 0 during M3 wiring
+  # to avoid burning $$$ on idle while the eval harness is still being built.
   min_machines_running = 0
 
+[[mounts]]
+  source = "model_cache"
+  destination = "/app/model_cache"
+
 [[vm]]
-  size = "shared-cpu-1x"
-  memory = "512mb"
+  # performance-1x = 1 dedicated vCPU; keeps Wav2Vec2 inference predictable.
+  # Drop to shared-cpu-2x if cost matters more than p95.
+  size = "performance-1x"
+  memory = "4096mb"

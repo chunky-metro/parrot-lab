@@ -1,0 +1,4 @@
+# Place buenos_dias.wav here for GATE_FUNCTIONAL_TESTS runs.
+# Generate via:
+#   say -o /tmp/sample.aiff "Buenos días"
+#   ffmpeg -y -i /tmp/sample.aiff -ar 16000 -ac 1 buenos_dias.wav
