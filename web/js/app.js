@@ -44,9 +44,22 @@
       fetchJson('/data/respelling_es.json'),
       fetchJson('/data/similarity_es.json')
     ]);
-    state.corpus = corpus && corpus.phrases && corpus.phrases.length
-      ? corpus
-      : { phrases: FALLBACK_PHRASES, version: 'fallback' };
+    // corpus may be either {phrases:[...]} or a flat array (current server shape).
+    // Phrase objects may use english_translation OR english_gloss. Normalize.
+    let phrases = null;
+    if (Array.isArray(corpus)) {
+      phrases = corpus;
+    } else if (corpus && Array.isArray(corpus.phrases)) {
+      phrases = corpus.phrases;
+    }
+    if (phrases && phrases.length) {
+      phrases = phrases.map((p) => Object.assign({}, p, {
+        english_gloss: p.english_gloss || p.english_translation || ''
+      }));
+      state.corpus = { phrases: phrases, version: (corpus && corpus.version) || 'server' };
+    } else {
+      state.corpus = { phrases: FALLBACK_PHRASES, version: 'fallback' };
+    }
     state.respelling = respelling || { mappings: [] };
     state.similarity = similarity || { pairs: [] };
   }

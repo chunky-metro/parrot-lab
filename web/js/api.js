@@ -37,13 +37,22 @@
     };
   }
 
+  function filenameForMime(mime) {
+    if (!mime) return 'attempt.webm';
+    if (mime.indexOf('mp4') !== -1) return 'attempt.mp4';
+    if (mime.indexOf('ogg') !== -1) return 'attempt.ogg';
+    if (mime.indexOf('wav') !== -1) return 'attempt.wav';
+    return 'attempt.webm';
+  }
+
   async function alignAttempt({ audioBlob, expectedText, lang }) {
     if (USE_MOCK) {
       await new Promise((r) => setTimeout(r, 500));
       return mockResult(expectedText);
     }
     const fd = new FormData();
-    fd.append('audio', audioBlob, 'attempt.webm');
+    const fname = filenameForMime(audioBlob && audioBlob.type);
+    fd.append('audio', audioBlob, fname);
     fd.append('expected_text', expectedText || '');
     fd.append('lang', lang || 'es');
     const res = await fetch(ALIGN_BASE_URL + '/align', { method: 'POST', body: fd });
