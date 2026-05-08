@@ -217,6 +217,24 @@ app.add_middleware(
 )
 
 
+# Cache-bust for HTML so iOS Safari / Chrome don't pin a stale shell after a
+# deploy. JS / CSS get a short max-age so script-tag versioned URLs (?v=m9d)
+# fetch fresh on bump but repeat visits in the same session don't hammer.
+# Static JSON data is fetched with `cache: 'no-cache'` from the client (see
+# fetchJson in web/js/app.js), so we don't need to override that here.
+@app.middleware("http")
+async def static_cache_control(request, call_next):
+    response = await call_next(request)
+    path = request.url.path
+    if path == "/" or path.endswith(".html"):
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+    elif path.endswith((".js", ".css")):
+        response.headers.setdefault("Cache-Control", "public, max-age=300")
+    return response
+
+
 # ---------- Audio fetch + decode ----------
 
 
