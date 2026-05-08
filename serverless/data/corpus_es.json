@@ -3,7 +3,7 @@
     "id": "es-001",
     "text": "Hola",
     "ipa": "ˈo.la",
-    "respelling": "OH-lah",
+    "respelling": "ohla",
     "english_translation": "Hello",
     "difficulty": 1,
     "tags": ["greeting", "pimsleur", "common"]
@@ -12,7 +12,7 @@
     "id": "es-002",
     "text": "Buenos días",
     "ipa": "ˈbwe.nos ˈði.as",
-    "respelling": "BWAY-nohs DEE-ahs",
+    "respelling": "bwaynose deeyus",
     "english_translation": "Good morning",
     "difficulty": 1,
     "tags": ["greeting", "fsi", "common"]
@@ -21,7 +21,7 @@
     "id": "es-003",
     "text": "Buenas tardes",
     "ipa": "ˈbwe.nas ˈtaɾ.ðes",
-    "respelling": "BWAY-nahs TAR-dehs",
+    "respelling": "bwaynus tardays",
     "english_translation": "Good afternoon",
     "difficulty": 1,
     "tags": ["greeting", "fsi", "common"]
@@ -30,7 +30,7 @@
     "id": "es-004",
     "text": "Buenas noches",
     "ipa": "ˈbwe.nas ˈno.tʃes",
-    "respelling": "BWAY-nahs NOH-chehs",
+    "respelling": "bwaynus nochays",
     "english_translation": "Good evening / Good night",
     "difficulty": 1,
     "tags": ["greeting", "fsi", "common"]
@@ -39,7 +39,7 @@
     "id": "es-005",
     "text": "Adiós",
     "ipa": "aˈðjos",
-    "respelling": "ah-DYOHS",
+    "respelling": "ahdyose",
     "english_translation": "Goodbye",
     "difficulty": 1,
     "tags": ["greeting", "pimsleur", "common"]
@@ -48,7 +48,7 @@
     "id": "es-006",
     "text": "Por favor",
     "ipa": "poɾ faˈβoɾ",
-    "respelling": "por fah-VOHR",
+    "respelling": "porfavore",
     "english_translation": "Please",
     "difficulty": 1,
     "tags": ["polite", "fsi", "common"]
@@ -57,7 +57,7 @@
     "id": "es-007",
     "text": "Gracias",
     "ipa": "ˈɡɾa.sjas",
-    "respelling": "GRAH-syahs",
+    "respelling": "grasseeus",
     "english_translation": "Thank you",
     "difficulty": 1,
     "tags": ["polite", "fsi", "common"]
@@ -66,7 +66,7 @@
     "id": "es-008",
     "text": "De nada",
     "ipa": "de ˈna.ða",
-    "respelling": "deh NAH-dah",
+    "respelling": "day nada",
     "english_translation": "You're welcome",
     "difficulty": 1,
     "tags": ["polite", "fsi", "common"]
@@ -75,7 +75,7 @@
     "id": "es-009",
     "text": "Disculpe",
     "ipa": "disˈkul.pe",
-    "respelling": "dees-KOOL-peh",
+    "respelling": "deescoolpay",
     "english_translation": "Excuse me",
     "difficulty": 2,
     "tags": ["polite", "fsi", "common"]
@@ -84,7 +84,7 @@
     "id": "es-010",
     "text": "Lo siento",
     "ipa": "lo ˈsjen.to",
-    "respelling": "loh SYEHN-toh",
+    "respelling": "lo syento",
     "english_translation": "I'm sorry",
     "difficulty": 2,
     "tags": ["polite", "fsi", "common"]
@@ -93,7 +93,7 @@
     "id": "es-011",
     "text": "Sí",
     "ipa": "si",
-    "respelling": "SEE",
+    "respelling": "see",
     "english_translation": "Yes",
     "difficulty": 1,
     "tags": ["common", "fsi"]
@@ -102,7 +102,7 @@
     "id": "es-012",
     "text": "No",
     "ipa": "no",
-    "respelling": "NOH",
+    "respelling": "no",
     "english_translation": "No",
     "difficulty": 1,
     "tags": ["common", "fsi"]
@@ -111,7 +111,7 @@
     "id": "es-013",
     "text": "Uno, dos, tres",
     "ipa": "ˈu.no dos tɾes",
-    "respelling": "OO-noh, dohs, trehs",
+    "respelling": "oono, dose, trace",
     "english_translation": "One, two, three",
     "difficulty": 2,
     "tags": ["numbers", "fsi"]
@@ -120,7 +120,7 @@
     "id": "es-014",
     "text": "Cuatro, cinco, seis",
     "ipa": "ˈkwa.tɾo ˈsiŋ.ko sejs",
-    "respelling": "KWAH-troh, SEEN-koh, SAYS",
+    "respelling": "kwatro, seenko, sayss",
     "english_translation": "Four, five, six",
     "difficulty": 2,
     "tags": ["numbers", "fsi"]
@@ -129,7 +129,7 @@
     "id": "es-015",
     "text": "Siete, ocho, nueve, diez",
     "ipa": "ˈsje.te ˈo.tʃo ˈnwe.βe djes",
-    "respelling": "SYEH-teh, OH-choh, NWEH-veh, DYEHS",
+    "respelling": "syetay, ocho, nwevay, dyess",
     "english_translation": "Seven, eight, nine, ten",
     "difficulty": 2,
     "tags": ["numbers", "fsi"]
@@ -138,7 +138,7 @@
     "id": "es-016",
     "text": "Once, doce, trece",
     "ipa": "ˈon.se ˈdo.se ˈtɾe.se",
-    "respelling": "OHN-seh, DOH-seh, TREH-seh",
+    "respelling": "onsay, dosay, tresay",
     "english_translation": "Eleven, twelve, thirteen",
     "difficulty": 2,
     "tags": ["numbers", "fsi"]
@@ -147,7 +147,7 @@
     "id": "es-017",
     "text": "Veinte",
     "ipa": "ˈbejn.te",
-    "respelling": "BAYN-teh",
+    "respelling": "bayntay",
     "english_translation": "Twenty",
     "difficulty": 1,
     "tags": ["numbers", "fsi"]
@@ -156,7 +156,7 @@
     "id": "es-018",
     "text": "Lunes, martes, miércoles",
     "ipa": "ˈlu.nes ˈmaɾ.tes ˈmjeɾ.ko.les",
-    "respelling": "LOO-nehs, MAR-tehs, MYEHR-koh-lehs",
+    "respelling": "loonays, martays, myerkolays",
     "english_translation": "Monday, Tuesday, Wednesday",
     "difficulty": 3,
     "tags": ["time", "days", "fsi"]
@@ -165,7 +165,7 @@
     "id": "es-019",
     "text": "Jueves, viernes, sábado, domingo",
     "ipa": "ˈxwe.βes ˈbjeɾ.nes ˈsa.βa.ðo doˈmiŋ.ɡo",
-    "respelling": "HWEH-vehs, BYEHR-nehs, SAH-bah-doh, doh-MEEN-goh",
+    "respelling": "hwayvays, byernays, sabado, domeengo",
     "english_translation": "Thursday, Friday, Saturday, Sunday",
     "difficulty": 3,
     "tags": ["time", "days", "fsi"]
@@ -174,7 +174,7 @@
     "id": "es-020",
     "text": "Madre",
     "ipa": "ˈma.ðɾe",
-    "respelling": "MAH-dreh",
+    "respelling": "madray",
     "english_translation": "Mother",
     "difficulty": 1,
     "tags": ["family", "fsi"]
@@ -183,7 +183,7 @@
     "id": "es-021",
     "text": "Padre",
     "ipa": "ˈpa.ðɾe",
-    "respelling": "PAH-dreh",
+    "respelling": "padray",
     "english_translation": "Father",
     "difficulty": 1,
     "tags": ["family", "fsi"]
@@ -192,7 +192,7 @@
     "id": "es-022",
     "text": "Hermano",
     "ipa": "eɾˈma.no",
-    "respelling": "ehr-MAH-noh",
+    "respelling": "ermahno",
     "english_translation": "Brother",
     "difficulty": 2,
     "tags": ["family", "fsi"]
@@ -201,7 +201,7 @@
     "id": "es-023",
     "text": "Hermana",
     "ipa": "eɾˈma.na",
-    "respelling": "ehr-MAH-nah",
+    "respelling": "ermahna",
     "english_translation": "Sister",
     "difficulty": 2,
     "tags": ["family", "fsi"]
@@ -210,7 +210,7 @@
     "id": "es-024",
     "text": "Hijo",
     "ipa": "ˈi.xo",
-    "respelling": "EE-hoh",
+    "respelling": "eeho",
     "english_translation": "Son",
     "difficulty": 1,
     "tags": ["family", "fsi"]
@@ -219,7 +219,7 @@
     "id": "es-025",
     "text": "Rojo",
     "ipa": "ˈro.xo",
-    "respelling": "ROH-hoh",
+    "respelling": "roho",
     "english_translation": "Red",
     "difficulty": 1,
     "tags": ["colors", "fsi"]
@@ -228,7 +228,7 @@
     "id": "es-026",
     "text": "Azul",
     "ipa": "aˈsul",
-    "respelling": "ah-SOOL",
+    "respelling": "asool",
     "english_translation": "Blue",
     "difficulty": 1,
     "tags": ["colors", "fsi"]
@@ -237,7 +237,7 @@
     "id": "es-027",
     "text": "Verde",
     "ipa": "ˈbeɾ.ðe",
-    "respelling": "BEHR-deh",
+    "respelling": "bairday",
     "english_translation": "Green",
     "difficulty": 1,
     "tags": ["colors", "fsi"]
@@ -246,7 +246,7 @@
     "id": "es-028",
     "text": "¿Qué es esto?",
     "ipa": "ke es ˈes.to",
-    "respelling": "keh ehs EHS-toh",
+    "respelling": "kay ess esto",
     "english_translation": "What is this?",
     "difficulty": 2,
     "tags": ["question", "fsi", "common"]
@@ -255,7 +255,7 @@
     "id": "es-029",
     "text": "¿Dónde está el baño?",
     "ipa": "ˈdon.de esˈta el ˈba.ɲo",
-    "respelling": "DOHN-deh ehs-TAH ehl BAH-nyoh",
+    "respelling": "donday esta el banyo",
     "english_translation": "Where is the bathroom?",
     "difficulty": 3,
     "tags": ["question", "directions", "pimsleur", "common"]
@@ -264,7 +264,7 @@
     "id": "es-030",
     "text": "Ahora",
     "ipa": "aˈo.ɾa",
-    "respelling": "ah-OH-rah",
+    "respelling": "ahora",
     "english_translation": "Now",
     "difficulty": 1,
     "tags": ["time", "fsi"]
@@ -273,7 +273,7 @@
     "id": "es-031",
     "text": "Mañana",
     "ipa": "maˈɲa.na",
-    "respelling": "mah-NYAH-nah",
+    "respelling": "manyana",
     "english_translation": "Tomorrow / Morning",
     "difficulty": 2,
     "tags": ["time", "fsi"]
@@ -282,7 +282,7 @@
     "id": "es-032",
     "text": "Ayer",
     "ipa": "aˈʝeɾ",
-    "respelling": "ah-YEHR",
+    "respelling": "ahyair",
     "english_translation": "Yesterday",
     "difficulty": 1,
     "tags": ["time", "fsi"]
@@ -291,7 +291,7 @@
     "id": "es-033",
     "text": "Hola, ¿cómo está usted?",
     "ipa": "ˈo.la ˈko.mo esˈta usˈteð",
-    "respelling": "OH-lah, KOH-moh ehs-TAH oos-TEHD",
+    "respelling": "ohla, komo esta oosted",
     "english_translation": "Hello, how are you? (formal)",
     "difficulty": 3,
     "tags": ["greeting", "pimsleur", "polite"]
@@ -300,7 +300,7 @@
     "id": "es-034",
     "text": "Mucho gusto",
     "ipa": "ˈmu.tʃo ˈɡus.to",
-    "respelling": "MOO-choh GOOS-toh",
+    "respelling": "moocho goosto",
     "english_translation": "Pleased to meet you",
     "difficulty": 2,
     "tags": ["greeting", "pimsleur", "polite"]
@@ -309,7 +309,7 @@
     "id": "es-035",
     "text": "¿Habla usted inglés?",
     "ipa": "ˈa.βla usˈteð iŋˈɡles",
-    "respelling": "AH-blah oos-TEHD een-GLEHS",
+    "respelling": "abla oosted eenglace",
     "english_translation": "Do you speak English?",
     "difficulty": 3,
     "tags": ["question", "pimsleur", "common"]
@@ -318,7 +318,7 @@
     "id": "es-036",
     "text": "No entiendo",
     "ipa": "no enˈtjen.do",
-    "respelling": "noh ehn-TYEHN-doh",
+    "respelling": "no entyendo",
     "english_translation": "I don't understand",
     "difficulty": 2,
     "tags": ["pimsleur", "common"]
@@ -327,7 +327,7 @@
     "id": "es-037",
     "text": "Quisiera ordenar",
     "ipa": "kiˈsje.ɾa oɾ.ðeˈnaɾ",
-    "respelling": "kee-SYEH-rah or-deh-NAR",
+    "respelling": "keesyera ordaynar",
     "english_translation": "I would like to order",
     "difficulty": 3,
     "tags": ["restaurant", "pimsleur", "polite"]
@@ -336,7 +336,7 @@
     "id": "es-038",
     "text": "La cuenta, por favor",
     "ipa": "la ˈkwen.ta poɾ faˈβoɾ",
-    "respelling": "lah KWEHN-tah, por fah-VOHR",
+    "respelling": "la kwenta, porfavore",
     "english_translation": "The check, please",
     "difficulty": 3,
     "tags": ["restaurant", "pimsleur", "polite"]
@@ -345,7 +345,7 @@
     "id": "es-039",
     "text": "¿Cuánto cuesta?",
     "ipa": "ˈkwan.to ˈkwes.ta",
-    "respelling": "KWAHN-toh KWEHS-tah",
+    "respelling": "kwanto kwesta",
     "english_translation": "How much does it cost?",
     "difficulty": 2,
     "tags": ["question", "shopping", "pimsleur"]
@@ -354,7 +354,7 @@
     "id": "es-040",
     "text": "¿Me puede ayudar?",
     "ipa": "me ˈpwe.ðe a.ʝuˈðaɾ",
-    "respelling": "meh PWEH-deh ah-yoo-DAR",
+    "respelling": "may pwayday ahyoodar",
     "english_translation": "Can you help me?",
     "difficulty": 3,
     "tags": ["question", "pimsleur", "common"]
@@ -363,7 +363,7 @@
     "id": "es-041",
     "text": "No, gracias",
     "ipa": "no ˈɡɾa.sjas",
-    "respelling": "noh GRAH-syahs",
+    "respelling": "no grasseeus",
     "english_translation": "No, thank you",
     "difficulty": 2,
     "tags": ["polite", "pimsleur", "common"]
@@ -372,7 +372,7 @@
     "id": "es-042",
     "text": "Sí, por supuesto",
     "ipa": "si poɾ suˈpwes.to",
-    "respelling": "SEE, por soo-PWEHS-toh",
+    "respelling": "see, por soopwesto",
     "english_translation": "Yes, of course",
     "difficulty": 3,
     "tags": ["polite", "pimsleur", "common"]
@@ -381,7 +381,7 @@
     "id": "es-043",
     "text": "Me llamo",
     "ipa": "me ˈʝa.mo",
-    "respelling": "meh YAH-moh",
+    "respelling": "may yamo",
     "english_translation": "My name is",
     "difficulty": 2,
     "tags": ["greeting", "pimsleur", "common"]
@@ -390,7 +390,7 @@
     "id": "es-044",
     "text": "¿Cómo se llama usted?",
     "ipa": "ˈko.mo se ˈʝa.ma usˈteð",
-    "respelling": "KOH-moh seh YAH-mah oos-TEHD",
+    "respelling": "komo say yama oosted",
     "english_translation": "What is your name? (formal)",
     "difficulty": 3,
     "tags": ["question", "pimsleur", "greeting"]
@@ -399,7 +399,7 @@
     "id": "es-045",
     "text": "Hasta luego",
     "ipa": "ˈas.ta ˈlwe.ɣo",
-    "respelling": "AHS-tah LWEH-goh",
+    "respelling": "asta lwaygo",
     "english_translation": "See you later",
     "difficulty": 2,
     "tags": ["greeting", "fsi", "common"]
@@ -408,7 +408,7 @@
     "id": "es-046",
     "text": "¿Dónde está el hotel?",
     "ipa": "ˈdon.de esˈta el oˈtel",
-    "respelling": "DOHN-deh ehs-TAH ehl oh-TEHL",
+    "respelling": "donday esta el otell",
     "english_translation": "Where is the hotel?",
     "difficulty": 3,
     "tags": ["question", "directions", "pimsleur"]
@@ -417,7 +417,7 @@
     "id": "es-047",
     "text": "Tengo hambre",
     "ipa": "ˈteŋ.ɡo ˈam.bɾe",
-    "respelling": "TEHN-goh AHM-breh",
+    "respelling": "tengo ambray",
     "english_translation": "I am hungry",
     "difficulty": 2,
     "tags": ["pimsleur", "restaurant", "common"]
@@ -426,7 +426,7 @@
     "id": "es-048",
     "text": "Estoy bien",
     "ipa": "esˈtoj ˈbjen",
-    "respelling": "ehs-TOY BYEHN",
+    "respelling": "estoy byen",
     "english_translation": "I am fine",
     "difficulty": 2,
     "tags": ["pimsleur", "common"]
@@ -435,7 +435,7 @@
     "id": "es-049",
     "text": "Necesito ayuda",
     "ipa": "ne.seˈsi.to aˈʝu.ða",
-    "respelling": "neh-seh-SEE-toh ah-YOO-dah",
+    "respelling": "naysayseeto ahyooda",
     "english_translation": "I need help",
     "difficulty": 3,
     "tags": ["emergency", "pimsleur", "common"]
@@ -444,7 +444,7 @@
     "id": "es-050",
     "text": "Voy al mercado",
     "ipa": "boj al meɾˈka.ðo",
-    "respelling": "BOY ahl mehr-KAH-doh",
+    "respelling": "boy al merkado",
     "english_translation": "I am going to the market",
     "difficulty": 3,
     "tags": ["pimsleur", "shopping", "common"]
