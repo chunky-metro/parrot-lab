@@ -5,7 +5,7 @@
   'use strict';
 
   const ALIGN_BASE_URL = 'https://parrot-lab-align-brxpk.sprites.app';
-  const USE_MOCK = true; // flip to false once /align is live
+  const USE_MOCK = false; // flip to false once /align is live
 
   function mockResult(expectedText) {
     // deterministic-ish mock keyed off phrase length so different phrases get different "scores"
