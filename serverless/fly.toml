@@ -1,0 +1,22 @@
+# parrot-lab phoneme alignment service — Fly.io machine config.
+# M2.4: placeholder. Real `fly launch` + `fly deploy` happens in M3.
+# M3 note: bump memory to >=4GB once Wav2Vec2-XLSR (~1GB) is loaded at startup.
+app = "parrot-lab-align"
+primary_region = "iad"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
