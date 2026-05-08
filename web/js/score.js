@@ -27,7 +27,7 @@
       if (this.progressWrap) this.progressWrap.hidden = true;
     }
 
-    render({ score, soundedLike, expectedRespelling, mistakes, nextBadge }) {
+    render({ score, soundedLike, sttTranscript, degraded, expectedRespelling, mistakes, nextBadge }) {
       if (this.resultsEl) this.resultsEl.hidden = false;
 
       if (this.scoreEl) {
@@ -47,7 +47,14 @@
 
       if (this.soundedEl) {
         const expected = expectedRespelling ? `<div class="expected">target: <strong>${escape(expectedRespelling)}</strong></div>` : '';
-        const said = soundedLike ? `<div class="said">you said: <strong>${escape(soundedLike)}</strong></div>` : '';
+        // "you said" prefers wizper STT (closest spanish); falls back to phonetic respelling if STT unavailable.
+        let said = '';
+        if (sttTranscript) {
+          said = `<div class="said">you said: <strong>${escape(sttTranscript)}</strong></div>`;
+        } else if (soundedLike) {
+          const label = degraded ? 'you said (STT unavailable, phonetic)' : 'you said (phonetic)';
+          said = `<div class="said">${label}: <strong>${escape(soundedLike)}</strong></div>`;
+        }
         this.soundedEl.innerHTML = expected + said;
       }
 

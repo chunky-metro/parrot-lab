@@ -167,6 +167,8 @@
     state.score.render({
       score: result.score,
       soundedLike: result.sounded_like_respelling,
+      sttTranscript: result.stt_transcript,
+      degraded: result.degraded,
       expectedRespelling: result.expected_respelling || state.phrase.respelling,
       mistakes: result.mistakes || []
     });

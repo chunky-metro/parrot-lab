@@ -468,14 +468,51 @@ def _phoneme_align(
 # ---------- Respelling (sounded-like) ----------
 
 
+# Stress, length, and separator markers that the wav2vec2-XLSR phoneme model
+# sometimes emits. These have no orthographic value — strip before respelling
+# so they don't leak into the user-facing "you said" string.
+_NOISE_RE = re.compile(r"[ˈˌːː.\s\-–—|]")
+
+# English-leaning phonemes the model emits when an English speaker mispronounces
+# Spanish. The Spanish respelling table doesn't include them, so without this
+# fallback they pass through as raw IPA (e.g. "bænoh" for what should be "bahnyo").
+# Order matters within rendering — these are checked AFTER the main Spanish
+# table so legit Spanish phonemes still win.
+_ENGLISH_FALLBACK = {
+    "ʉ": "oo",   # close central rounded — English "you/too"
+    "ʌ": "uh",   # open-mid back unrounded — English "cup"
+    "æ": "a",    # near-open front unrounded — English "cat"
+    "ɑ": "ah",   # open back unrounded — English "father"
+    "ɒ": "ah",   # open back rounded
+    "ɔ": "aw",   # open-mid back rounded — English "thought"
+    "ɛ": "eh",   # open-mid front unrounded — English "bed"
+    "ɪ": "ih",   # near-close near-front unrounded — English "kit"
+    "ʊ": "oo",   # near-close near-back rounded — English "foot"
+    "ə": "uh",   # schwa
+    "ɜ": "ur",   # open-mid central — English "bird"
+    "ʃ": "sh",   # voiceless postalveolar fricative
+    "ʒ": "zh",   # voiced postalveolar fricative
+    "h": "h",
+    "y": "y",
+    "z": "z",
+}
+
+
 def _render_respelling(phonemes: List[str]) -> str:
     """Greedy longest-match render of phoneme list -> English-orthography respelling.
 
     No syllable / stress inference here — the actual user phonemes are not
     syllable-segmented. Good enough for v1 'sounded like' display.
+
+    Two-tier match:
+      1. Spanish respelling table (longest-first) — covers correct Spanish.
+      2. English-fallback table — covers English-speaker substitutions.
+      3. Drop unknown markers (stress, length, separators) silently.
     """
     table = _state.get("respelling_table") or []
     flat = "".join(phonemes)
+    # Strip stress/length/separator markers first — they aren't orthographic.
+    flat = _NOISE_RE.sub("", flat)
     out: List[str] = []
     i = 0
     while i < len(flat):
@@ -487,9 +524,16 @@ def _render_respelling(phonemes: List[str]) -> str:
         if matched:
             out.append(matched[1])
             i += len(matched[0])
-        else:
-            out.append(flat[i])
-            i += 1
+            continue
+        ch = flat[i]
+        if ch in _ENGLISH_FALLBACK:
+            out.append(_ENGLISH_FALLBACK[ch])
+        elif ch.isalpha():
+            # ASCII-ish phoneme not in either table — keep as-is, it's already
+            # readable (e.g. raw "b", "p", "k").
+            out.append(ch)
+        # else: drop silently (residual marker we didn't anticipate)
+        i += 1
     return "".join(out)
 
 
