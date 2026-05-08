@@ -1,0 +1,47 @@
+# Ruby
+vendor/
+.bundle/
+*.gem
+coverage/
+spec/examples.txt
+.rspec_status
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.venv/
+venv/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+log/
+
+# Temp / OS
+tmp/
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# Audio scratch
+*.wav.tmp
+recordings/local/
