@@ -94,30 +94,32 @@ section {
 
 .current-phrase { text-align: center; }
 
-.phrase-text { font-size: 1.6rem; font-weight: 600; margin-bottom: 0.75rem; }
+.phrase-respelling {
+  font-family: var(--mono);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.85rem;
+  line-height: 1.15;
+}
 .phrase-line {
   display: flex;
   align-items: baseline;
   justify-content: center;
   gap: 0.5rem;
-  margin: 0.35rem 0;
+  margin: 0.3rem 0;
   flex-wrap: wrap;
 }
 .phrase-line-label {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-dim);
   font-weight: 600;
 }
-.phrase-ipa { font-family: var(--mono); color: var(--text-dim); font-size: 0.95rem; }
-.phrase-respelling {
-  font-family: var(--mono);
-  font-size: 1.25rem;
-  color: var(--accent);
-  letter-spacing: 0.02em;
-  font-weight: 600;
-}
+.phrase-text { font-size: 1rem; font-weight: 500; color: var(--text); }
+.phrase-ipa { font-family: var(--mono); color: var(--text-dim); font-size: 0.9rem; }
 .phrase-gloss { font-style: italic; color: var(--text-dim); font-size: 0.9rem; }
 
 .record-section { text-align: center; }

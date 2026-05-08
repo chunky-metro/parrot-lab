@@ -76,9 +76,9 @@
 
   function renderPhrase(p) {
     state.phrase = p;
-    els.phraseText.textContent = p.text || '—';
+    els.phraseRespelling.textContent = p.respelling || '—';
+    els.phraseText.textContent = p.text || '';
     els.phraseIpa.textContent = p.ipa ? `/${p.ipa}/` : '';
-    els.phraseRespelling.textContent = p.respelling || '';
     els.phraseGloss.textContent = p.english_gloss || '';
     state.score.clear();
     els.playbackControls.hidden = true;
