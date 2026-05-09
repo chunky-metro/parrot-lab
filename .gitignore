@@ -46,3 +46,5 @@ Thumbs.db
 *.wav.tmp
 recordings/local/
 .sprite
+evals/.audio-cache/
+evals/reports/
