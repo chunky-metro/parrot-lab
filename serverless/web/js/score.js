@@ -48,9 +48,14 @@
       if (this.soundedEl) {
         const expected = expectedRespelling ? `<div class="expected">target: <strong>${escape(expectedRespelling)}</strong></div>` : '';
         // "you said" prefers wizper STT (closest spanish); falls back to phonetic respelling if STT unavailable.
+        // If the score is very low AND STT degraded, the audio probably didn't capture
+        // anything coherent — show a "try again" hint instead of a fabricated phonetic
+        // string (which is just wav2vec2 noise on near-empty audio).
         let said = '';
         if (sttTranscript) {
           said = `<div class="said">you said: <strong>${escape(sttTranscript)}</strong></div>`;
+        } else if (degraded && (typeof score === 'number') && score < 30) {
+          said = `<div class="said try-again"><em>recording too short or unclear — try again</em></div>`;
         } else if (soundedLike) {
           const label = degraded ? 'you said (STT unavailable, phonetic)' : 'you said (phonetic)';
           said = `<div class="said">${label}: <strong>${escape(soundedLike)}</strong></div>`;
