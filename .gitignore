@@ -45,3 +45,6 @@ Thumbs.db
 # Audio scratch
 *.wav.tmp
 recordings/local/
+.sprite
+evals/.audio-cache/
+evals/reports/

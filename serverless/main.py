@@ -459,10 +459,23 @@ def _phoneme_align(
 
     ops.reverse()
     mistakes.reverse()
+
+    # Dedup mistakes by (phoneme, expected, actual) — the backtrace can emit
+    # the same hint twice when a phoneme appears repeatedly in the expected
+    # string (Discord 2026-05-08 bug: "Final s dropped" hint listed twice).
+    seen: set = set()
+    unique_mistakes: List[Mistake] = []
+    for mk in mistakes:
+        key = (mk.phoneme, mk.expected, mk.actual, mk.hint)
+        if key in seen:
+            continue
+        seen.add(key)
+        unique_mistakes.append(mk)
+
     distance = dp[n][m]
     denom = max(n, m, 1)
     score = max(0.0, 100.0 - 100.0 * distance / denom)
-    return score, ops, mistakes
+    return score, ops, unique_mistakes
 
 
 # ---------- Respelling (sounded-like) ----------
@@ -540,8 +553,65 @@ def _render_respelling(phonemes: List[str]) -> str:
 # ---------- FAL STT (wizper) ----------
 
 
-async def _wizper_stt(audio_bytes: bytes, lang: str) -> Optional[str]:
-    """Best-effort STT via fal-ai/wizper. Returns transcript or None on any failure."""
+# Spanish numeral lookup. wizper auto-normalizes spoken numerals to digits
+# ("cuatro" → "4"), which is fine for transcription but wrong for a
+# pronunciation-practice app — the user is being shown digits as if they
+# pronounced digits. Reverse the mapping for display when expected text is
+# digit-free. Coverage: 0-29, 30-90 by tens, plus 100/1000 (corpus only goes
+# to ~20 so the 30-90/100/1000 entries are defensive).
+_SPANISH_NUMERALS_ES = {
+    "0": "cero", "1": "uno", "2": "dos", "3": "tres", "4": "cuatro",
+    "5": "cinco", "6": "seis", "7": "siete", "8": "ocho", "9": "nueve",
+    "10": "diez", "11": "once", "12": "doce", "13": "trece", "14": "catorce",
+    "15": "quince", "16": "dieciséis", "17": "diecisiete", "18": "dieciocho",
+    "19": "diecinueve", "20": "veinte", "21": "veintiuno", "22": "veintidós",
+    "23": "veintitrés", "24": "veinticuatro", "25": "veinticinco",
+    "26": "veintiséis", "27": "veintisiete", "28": "veintiocho",
+    "29": "veintinueve", "30": "treinta", "40": "cuarenta", "50": "cincuenta",
+    "60": "sesenta", "70": "setenta", "80": "ochenta", "90": "noventa",
+    "100": "cien", "1000": "mil",
+}
+
+# Match standalone digit runs (1-4 digits). We deliberately don't try to
+# rebuild compound numbers ("treinta y cinco") from "35" — for the v1 corpus
+# (1-20) the simple lookup is sufficient. Anything outside the lookup is left
+# as-is so the user sees the literal digit and can deduce what wizper heard.
+_DIGIT_RUN_RE = re.compile(r"\b\d+\b")
+
+
+def _despeakerize_numerals(text: str, expected_text: str, lang: str) -> str:
+    """Replace digit runs in STT output with the spoken-numeral word form.
+
+    Only runs when:
+      - lang is Spanish (the only mapping table we ship)
+      - `expected_text` does NOT itself contain digits (don't break legit numeric phrases)
+    """
+    if not text:
+        return text
+    if lang != "es":
+        return text
+    if any(ch.isdigit() for ch in expected_text or ""):
+        return text
+    if not any(ch.isdigit() for ch in text):
+        return text
+
+    def _sub(m: "re.Match[str]") -> str:
+        digits = m.group(0)
+        return _SPANISH_NUMERALS_ES.get(digits, digits)
+
+    return _DIGIT_RUN_RE.sub(_sub, text)
+
+
+async def _wizper_stt(
+    audio_bytes: bytes,
+    lang: str,
+    expected_text: str = "",
+) -> Optional[str]:
+    """Best-effort STT via fal-ai/wizper. Returns transcript or None on any failure.
+
+    Post-processing:
+      - Numeral despeakerization (4 → cuatro) for Spanish if expected text is digit-free.
+    """
     if not os.environ.get("FAL_KEY"):
         log.info("FAL_KEY not set; skipping wizper STT")
         return None
@@ -567,13 +637,38 @@ async def _wizper_stt(audio_bytes: bytes, lang: str) -> Optional[str]:
             return None
 
     try:
-        return await asyncio.to_thread(_run)
+        raw = await asyncio.to_thread(_run)
     except Exception as e:  # noqa: BLE001
         log.warning("wizper task failed: %s", e)
         return None
 
+    if raw is None:
+        return None
+    return _despeakerize_numerals(raw, expected_text, lang)
+
 
 # ---------- Endpoints ----------
+
+
+# Minimum audio characteristics for "this is real speech" gating.
+# Below either threshold we skip STT entirely (avoids wizper hallucinating
+# plausible-sounding transcripts on near-empty audio — the "ghost gracias"
+# bug Matt caught 2026-05-08, Discord msg 1502382610452582533).
+_MIN_AUDIO_SECONDS = 0.5
+_MIN_AUDIO_RMS = 0.005
+
+
+def _audio_quality_ok(waveform: np.ndarray) -> Tuple[bool, str]:
+    """Return (ok, reason). Reason is empty when ok."""
+    if waveform.size == 0:
+        return False, "no_audio"
+    duration_s = waveform.size / 16000.0
+    if duration_s < _MIN_AUDIO_SECONDS:
+        return False, f"too_short ({duration_s:.2f}s < {_MIN_AUDIO_SECONDS}s)"
+    rms = float(np.sqrt(np.mean(waveform.astype(np.float64) ** 2)))
+    if rms < _MIN_AUDIO_RMS:
+        return False, f"too_quiet (rms={rms:.4f} < {_MIN_AUDIO_RMS})"
+    return True, ""
 
 
 @app.post("/align", response_model=AlignResponse)
@@ -584,11 +679,23 @@ async def align(req: AlignRequest) -> AlignResponse:
     started = time.monotonic()
     audio_bytes = await _fetch_audio_bytes(req)
 
-    # Run STT + decode in parallel; if STT fails we degrade gracefully.
-    stt_task = asyncio.create_task(_wizper_stt(audio_bytes, req.lang))
+    # Decode first so we can gate STT on audio quality (avoids wizper
+    # hallucinating on near-empty input).
     waveform = await asyncio.to_thread(_decode_to_16k_mono, audio_bytes)
+    audio_ok, audio_reason = _audio_quality_ok(waveform)
+
+    # Run STT + phoneme extraction in parallel when audio passes gating;
+    # otherwise skip STT entirely (saves a wizper call on bad input).
+    if audio_ok:
+        stt_task = asyncio.create_task(
+            _wizper_stt(audio_bytes, req.lang, req.expected_text)
+        )
+    else:
+        stt_task = None
+        log.info("audio quality gate failed: %s — skipping STT", audio_reason)
+
     actual_phonemes = await asyncio.to_thread(_extract_phonemes, waveform)
-    stt_transcript = await stt_task
+    stt_transcript = await stt_task if stt_task is not None else None
 
     expected_phonemes = _tokenize_ipa(req.expected_ipa)
 
